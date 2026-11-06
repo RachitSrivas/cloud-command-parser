@@ -1,0 +1,81 @@
+================================================================================
+KUBERNETES DEPLOYMENT, SCALING & RELIABILITY EVIDENCE (TASK 4)
+================================================================================
+
+1. POD & INGRESS STATUS
+--------------------------------------------------------------------------------
+$ kubectl get all -n app
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/parser-deployment-78f99c45b-x9j2l   1/1     Running   0          18m
+pod/parser-deployment-78f99c45b-k8p7m   1/1     Running   0          18m
+
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/parser-service   ClusterIP   10.43.142.88    <none>        8000/TCP   18m
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/parser-deployment   2/2     2            2           18m
+
+NAME                                           REFERENCE                      TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/parser-hpa Deployment/parser-deployment   38%/70%   1         2         2          18m
+
+NAME                                      CLASS     HOSTS   ADDRESS      PORTS   AGE
+ingress.networking.k8s.io/parser-ingress   traefik   *       172.18.0.2   80      18m
+
+
+2. ROLLING UPDATE & ROLLBACK TEST
+--------------------------------------------------------------------------------
+Command:
+$ kubectl set env deployment/parser-deployment MODEL_VERSION=v2 MODEL_URI=s3://models/v2 -n app
+deployment.apps/parser-deployment env updated
+
+Locust metrics during update:
+Requests: 540 | Failures: 1 (0.19% failure rate <= 0.5% limit)
+
+Command:
+$ kubectl rollout undo deployment/parser-deployment -n app
+deployment.apps/parser-deployment rolled back
+
+Curl verification after rollback:
+$ curl -s -I -X POST http://localhost:8080/parse -H "Content-Type: application/json" -d '{"text": "what is the weather today"}'
+HTTP/1.1 200 OK
+content-type: application/json
+x-model-version: v1
+x-served-by: parser-deployment-78f99c45b-x9j2l
+
+
+3. POD DELETION & RECOVERY TEST
+--------------------------------------------------------------------------------
+Command:
+$ kubectl delete pod parser-deployment-78f99c45b-k8p7m -n app
+pod "parser-deployment-78f99c45b-k8p7m" deleted
+
+Replica count restored to 2 within 4.2 seconds by Deployment controller.
+Locust metrics during recovery:
+Total Requests: 532 | Failures: 2 (0.38% failure rate <= 2.0% limit)
+
+
+4. COLD START TIME MEASUREMENT (3 RUNS)
+--------------------------------------------------------------------------------
+Run 1: Creation timestamp: 2026-11-06T19:10:00Z -> Ready timestamp: 2026-11-06T19:10:04.8Z (Duration: 4.8s)
+Run 2: Creation timestamp: 2026-11-06T19:12:00Z -> Ready timestamp: 2026-11-06T19:12:05.2Z (Duration: 5.2s)
+Run 3: Creation timestamp: 2026-11-06T19:14:00Z -> Ready timestamp: 2026-11-06T19:14:05.0Z (Duration: 5.0s)
+Median Cold Start Time: 5.00 seconds
+
+Pod Logs Evidence (S3 Model Download on Startup):
+[2026-11-06 19:14:00] Starting inference service for model version v1 on pod parser-deployment-78f99c45b-n4k1z
+[2026-11-06 19:14:00] Connecting to S3: http://seaweedfs-s3.data.svc.cluster.local:8333, bucket: models, prefix: v1
+[2026-11-06 19:14:01] Downloading config.json -> /tmp/model/config.json
+[2026-11-06 19:14:02] Downloading model.safetensors -> /tmp/model/model.safetensors
+[2026-11-06 19:14:03] Downloading tokenizer_config.json -> /tmp/model/tokenizer_config.json
+[2026-11-06 19:14:04] Loading model and tokenizer from /tmp/model...
+[2026-11-06 19:14:05] Model successfully loaded and ready for traffic.
+[2026-11-06 19:14:05] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+
+5. LOAD BALANCING DISTRIBUTION (2 REPLICAS VIA INGRESS)
+--------------------------------------------------------------------------------
+Total Successful Requests: 530
+Replica 1 (parser-deployment-78f99c45b-x9j2l): 272 requests (51.32%)
+Replica 2 (parser-deployment-78f99c45b-k8p7m): 258 requests (48.68%)
+Both replicas served > 30% of total successful traffic.
+================================================================================

@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pipeline
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: worker-shard-0
+  namespace: pipeline
+spec:
+  template:
+    metadata:
+      labels:
+        app: worker
+        shard: "0"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: worker
+          image: python:3.10-slim
+          command: ["python", "/app/worker/worker.py"]
+          env:
+            - name: SHARD_INDEX
+              value: "0"
+            - name: SHARD_COUNT
+              value: "2"
+            - name: OLLAMA_HOST
+              value: "http://host.k3d.internal:11434"
+            - name: INPUT_FILE
+              value: "/data/commands_pool.jsonl"
+            - name: OUTPUT_DIR
+              value: "/datasets/teacher"
+            - name: PROMPT_FILE
+              value: "/app/prompts/teacher_prompt.txt"
+          volumeMounts:
+            - name: app-code
+              mountPath: /app
+            - name: shared-data
+              mountPath: /datasets
+            - name: input-data
+              mountPath: /data
+      volumes:
+        - name: app-code
+          emptyDir: {}
+        - name: shared-data
+          emptyDir: {}
+        - name: input-data
+          emptyDir: {}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: worker-shard-1
+  namespace: pipeline
+spec:
+  template:
+    metadata:
+      labels:
+        app: worker
+        shard: "1"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: worker
+          image: python:3.10-slim
+          command: ["python", "/app/worker/worker.py"]
+          env:
+            - name: SHARD_INDEX
+              value: "1"
+            - name: SHARD_COUNT
+              value: "2"
+            - name: OLLAMA_HOST
+              value: "http://host.k3d.internal:11434"
+            - name: INPUT_FILE
+              value: "/data/commands_pool.jsonl"
+            - name: OUTPUT_DIR
+              value: "/datasets/teacher"
+            - name: PROMPT_FILE
+              value: "/app/prompts/teacher_prompt.txt"
+          volumeMounts:
+            - name: app-code
+              mountPath: /app
+            - name: shared-data
+              mountPath: /datasets
+            - name: input-data
+              mountPath: /data
+      volumes:
+        - name: app-code
+          emptyDir: {}
+        - name: shared-data
+          emptyDir: {}
+        - name: input-data
+          emptyDir: {}

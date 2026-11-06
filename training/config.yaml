@@ -1,0 +1,11 @@
+# Training Hyperparameters and Reproducibility Configuration
+seed: 42
+learning_rate: 5.0e-5
+batch_size: 8
+num_epochs: 3
+max_seq_length: 128
+library_versions:
+  torch: "2.2.2"
+  transformers: "4.38.2"
+  datasets: "2.18.0"
+  accelerate: "0.28.0"

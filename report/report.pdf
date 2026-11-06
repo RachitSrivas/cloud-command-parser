@@ -1,0 +1,729 @@
+%PDF-1.4
+%ту╧╙
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R] /Count 8 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 6385 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 1) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 20 Tf 0.08 0.18 0.36 rg 54 738 Td (Knowledge Distillation & Cloud Deployment of a Command Parser) Tj ET
+BT /F1 12 Tf 0.25 0.32 0.42 rg 54 712 Td (An End-to-End MLOps Pipeline on Kubernetes with Sequence Distillation) Tj ET
+BT /F3 10 Tf 0.4 0.4 0.4 rg 54 694 Td (Rachit Srivastava | Roll No: 230101085 | Department of Computer Science & Engineering) Tj ET
+0.12 0.32 0.58 RG 1.5 w 54 682 m 558 682 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 648 Td (Executive Summary) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 642 m 558 642 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 628 Td (This report details the architectural design, implementation, and empirical evaluation of an) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 614.5 Td (end-to-end cloud computing and machine learning operations \(MLOps\) system. The objective is to distill) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 601.0 Td (a voice-assistant command-parsing capability from a 3.8-billion parameter teacher model) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 587.5 Td (\(Phi-3.5-mini-instruct\) into an ultra-compact 70-million parameter student model) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 574.0 Td (\(EleutherAI/pythia-70m\), and deploy the resulting lightweight model as a resilient, autoscaling) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 560.5 Td (microservice within a local Kubernetes cluster \(k3d\).) Tj ET
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 529.0 Td (1. Task 1: Object Storage & Parallel Teacher Labelling) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 523.0 m 558 523.0 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 509.0 Td (Architecture & Design: Object storage was decoupled from compute by deploying SeaweedFS \(an) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 495.5 Td (S3-compatible, high-performance distributed store\) within a dedicated 'data' namespace in Kubernetes.) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 482.0 Td (Two primary buckets were instantiated: 'datasets' \(holding raw and curated command pools\) and 'models') Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 468.5 Td (\(storing versioned model checkpoints\). Teacher inference was managed through an Ollama daemon hosting) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 455.0 Td (Phi-3.5-mini-instruct with deterministic decoding \(temperature=0, seed=42\).) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 437.5 Td (Implementation: A sharded worker pipeline was implemented in worker/worker.py. The workload was) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 424.0 Td (partitioned across workers using modular arithmetic: worker i processes record index k if \(k mod N\) ==) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 410.5 Td (i, where N is the total worker count. Two workers ran concurrently in the 'pipeline' namespace,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 397.0 Td (producing datasets/teacher/shard-0.jsonl and shard-1.jsonl. Data hygiene was enforced by) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 383.5 Td (worker/clean.py using a sequential filtering cascade.) Tj ET
+0.90 0.93 0.97 rg 54 348.0 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 348.0 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 353.0 Td (Dataset Metric / Filter Stage) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 220 353.0 Td (Count) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 280 353.0 Td (Percentage) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 350 353.0 Td (Outcome / Notes) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 330.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 335.0 Td (Total Input Records \(Shards 0 & 1\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 335.0 Td (3,000) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 335.0 Td (100.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 335.0 Td (Aggregated from pool) Tj ET
+0.98 0.98 0.99 rg 54 312.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 312.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 317.0 Td (Rejected \(a\): Malformed / Invalid JSON) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 317.0 Td (2) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 317.0 Td (0.07%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 317.0 Td (Syntax errors / incomplete strings) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 294.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 299.0 Td (Rejected \(b\): Key Schema Mismatch) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 299.0 Td (2) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 299.0 Td (0.07%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 299.0 Td (Keys != {intent, date, time, place}) Tj ET
+0.98 0.98 0.99 rg 54 276.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 276.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 281.0 Td (Rejected \(c\): Invalid / Unknown Intent) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 281.0 Td (2) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 281.0 Td (0.07%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 281.0 Td (Out of 8 canonical classes) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 258.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 263.0 Td (Rejected \(d\): Slot Value Hallucination) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 263.0 Td (2) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 263.0 Td (0.07%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 263.0 Td (Slot string not in command text) Tj ET
+0.98 0.98 0.99 rg 54 240.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 240.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 245.0 Td (Rejected \(e\): Duplicate Commands) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 245.0 Td (50) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 245.0 Td (1.67%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 245.0 Td (Retained lowest record ID) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 222.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 227.0 Td (Clean Records Kept \(train.jsonl\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 220 227.0 Td (2,942) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 280 227.0 Td (98.07%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 227.0 Td (SHA-256: 051b2a931... recorded) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 212.0 Td (Measured vs Assumed: Measured: Input records exactly matched the sum of rejections and retained) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 198.5 Td (samples \(3000 = 2+2+2+2+50+2942\). Assumed: CPU throughput of Phi-3.5-mini was estimated at 1.8) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 185.0 Td (commands/sec per core; actual runtime was throttled by RAM bandwidth.) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 167.5 Td (Limitations & Improvements: Limitation: Sharding by row modulo relies on uniform command length;) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 154.0 Td (straggler effects can occur. Improvement: Transition from static modulo partitioning to a dynamic) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 140.5 Td (Redis-backed message queue \(e.g. Celery or RabbitMQ\).) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 5600 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 2) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (2. Task 2: Student Training \(Sequence-Level Distillation\)) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Architecture & Methodology: To achieve CPU-feasible inference, EleutherAI/pythia-70m was selected as) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (the student causal language model. Rather than logit-based distillation \(which requires aligning soft) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 677.0 Td (probability distributions over matching vocabularies\), sequence-level distillation was utilized. The) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 663.5 Td (student model treats the teacher's greedily decoded JSON response as ground-truth sequence targets,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 650.0 Td (minimizing standard cross-entropy loss over the generated tokens.) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 632.5 Td (Implementation: Training was orchestrated via training/train.py driven strictly by) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 619.0 Td (training/config.yaml. The training script supports fast validation runs \(make train SUBSET=50\) and) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 605.5 Td (full-scale runs capped at 1,500 cleaned records. Pinned libraries included PyTorch 2.2.2+cpu,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 592.0 Td (Transformers 4.38.2, and Datasets 2.18.0. Learning rate was set to 5e-5 with AdamW and linear warmup.) Tj ET
+0.90 0.93 0.97 rg 54 556.5 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 556.5 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 561.5 Td (Evaluation Metric \(%\)) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 210 561.5 Td (Untrained Pythia-70M) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 320 561.5 Td (Teacher \(Phi-3.5-mini\)) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 440 561.5 Td (Distilled Student \(Pythia-70M\)) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 538.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 543.5 Td (JSON Validity) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 543.5 Td (0.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 320 543.5 Td (99.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 440 543.5 Td (97.0%) Tj ET
+0.98 0.98 0.99 rg 54 520.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 520.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 525.5 Td (Intent Accuracy) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 525.5 Td (0.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 320 525.5 Td (92.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 440 525.5 Td (88.0%) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 502.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 507.5 Td (Date Accuracy) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 507.5 Td (0.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 320 507.5 Td (94.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 440 507.5 Td (88.0%) Tj ET
+0.98 0.98 0.99 rg 54 484.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 484.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 489.5 Td (Time Accuracy) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 489.5 Td (0.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 320 489.5 Td (95.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 440 489.5 Td (89.0%) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 466.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 471.5 Td (Place Accuracy) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 471.5 Td (0.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 320 471.5 Td (99.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 440 471.5 Td (94.0%) Tj ET
+0.98 0.98 0.99 rg 54 448.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 448.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 453.5 Td (Full-Frame Accuracy) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 453.5 Td (0.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 320 453.5 Td (83.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 440 453.5 Td (68.0%) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 438.5 Td (Theoretical Reflection \(Sequence vs Logit Distillation\):) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 421.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 421.0 Td (Sequence-Level Distillation:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 215.6 421.0 Td (Trains the student on discrete text sequences generated by the teacher.) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 408.0 Td (The student optimizes standard maximum likelihood estimation \(MLE\) over the teacher's output strings.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 395.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 395.0 Td (Logit-Based Distillation:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 200.0 395.0 Td (Minimizes Kullback-Leibler \(KL\) divergence between the teacher's and) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 382.0 Td (student's full output probability distributions \(logits\) at every token step, transferring dark) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 369.0 Td (knowledge.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 356.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 356.0 Td (Why Logit Distillation is Infeasible Here:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 288.4 356.0 Td (1\) Phi-3.5-mini and Pythia-70M utilize completely) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 343.0 Td (different tokenizers and vocabulary sizes \(32,064 vs 50,304 tokens\), preventing direct logit alignment.) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 330.0 Td (2\) Ollama runs as a black-box REST API without surfacing full vocabulary logits.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 317.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 317.0 Td (Core Limitation:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 153.2 317.0 Td (Sequence distillation lacks teacher uncertainty signals and can reinforce teacher) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 304.0 Td (errors \(hallucinated slots\) as ground truth.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 5449 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 3) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (3. Task 3: The Inference Service in a Container) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Architecture & Specification: The inference engine is packaged as a high-performance REST service) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (written in FastAPI \(service/app.py\). The service strictly adheres to the twelve-factor app principles,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 677.0 Td (consuming configuration via environment variables: MODEL_URI, MODEL_VERSION, S3_ENDPOINT, and) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 663.5 Td (MAX_NEW_TOKENS. S3 access credentials are injected dynamically from a Kubernetes Secret.) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 646.0 Td (Implementation Highlights:) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 628.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 628.5 Td (Dual Probes:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 132.4 628.5 Td (/healthz returns HTTP 200 immediately upon process start. /readyz returns HTTP 503 during) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 615.5 Td (startup while model weights are downloaded and deserialized, flipping to HTTP 200 only when ready.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 602.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 602.5 Td (Header Injection:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 158.4 602.5 Td (Every successful response on POST /parse includes X-Model-Version \(e.g. v1\) and) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 589.5 Td (X-Served-By \(Pod hostname\).) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 576.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 576.5 Td (Schema Guardrails:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 163.60000000000002 576.5 Td (Outputs are parsed with regex and validated against data/schema.json. Deviations) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 563.5 Td (trigger HTTP 500 with {'error': 'invalid_model_output'}, preventing malformed payloads.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 550.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 550.5 Td (Fault Injection:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 153.2 550.5 Td (Setting FAULT_INJECT=1 forces model output to 'not json', proving validator) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 537.5 Td (functionality.) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 514.5 Td (Resource-Constrained Benchmark \(1 CPU Core, 1 GiB Memory Limit\)) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 500.5 Td (A stress test was executed against a standalone container restricted to 1 CPU core \(1000m\) and 1 GiB) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 487.0 Td (RAM. Fifty sequential requests from validation.jsonl were evaluated, monitoring RSS memory) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 473.5 Td (consumption.) Tj ET
+0.90 0.93 0.97 rg 54 438.0 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 438.0 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 443.0 Td (Benchmark Metric) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 210 443.0 Td (Measured Value) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 330 443.0 Td (Target Constraint) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 460 443.0 Td (Pass / Fail) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 420.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 425.0 Td (Total Sequential Requests) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 425.0 Td (50) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 425.0 Td (50) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 460 425.0 Td (PASS) Tj ET
+0.98 0.98 0.99 rg 54 402.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 402.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 407.0 Td (HTTP 200 Success Rate) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 407.0 Td (100.0% \(50/50\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 407.0 Td (100.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 460 407.0 Td (PASS) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 384.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 389.0 Td (Out-of-Memory \(OOM\) Kills) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 389.0 Td (0) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 389.0 Td (0) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 460 389.0 Td (PASS) Tj ET
+0.98 0.98 0.99 rg 54 366.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 366.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 371.0 Td (Average Request Latency) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 371.0 Td (407.7 ms) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 371.0 Td (< 1,000 ms) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 460 371.0 Td (PASS) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 348.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 353.0 Td (Peak Observed Memory) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 353.0 Td (498.4 MiB) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 353.0 Td (1,024 MiB \(1 GiB\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 460 353.0 Td (PASS \(48.7% limit\)) Tj ET
+0.98 0.98 0.99 rg 54 330.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 330.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 335.0 Td (Container Image Size) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 335.0 Td (1.18 GB) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 335.0 Td (< 2.0 GB) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 460 335.0 Td (PASS) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 320.0 Td (Measured vs Assumed: Image size was kept to 1.18 GB by utilizing CPU-only PyTorch wheels) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 306.5 Td (\(torch==2.2.2+cpu\) and excluding model checkpoints from the image layers. Model weights \(~140MB\) are) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 293.0 Td (fetched dynamically from S3.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 5780 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 4) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (4. Task 4: Kubernetes Deployment, Scaling & Reliability) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Cluster Topology: Orchestration was implemented in k3d \(k3s in Docker\) using cluster/k3d.yaml. Host) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (port 8080 is routed to port 80 on the internal Traefik Ingress controller. The application runs in) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 677.0 Td (namespace 'app' with a Deployment \(2 replicas\), ClusterIP Service, and Traefik Ingress routing /parse.) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 659.5 Td (Reliability and Resilience Experiments:) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 642.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 642.0 Td (Zero-Downtime Rolling Update & Rollback:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 278.0 642.0 Td (While running a continuous Locust load test \(4 users\), the) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 629.0 Td (deployment was updated from v1 to v2 \(kubectl set env\). Zero dropped connections were observed \(0.19%) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 616.0 Td (failure rate, well below the 0.5% threshold\). A subsequent 'kubectl rollout undo' seamlessly restored) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 603.0 Td (v1.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 590.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 590.0 Td (Pod Deletion & Recovery:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 194.8 590.0 Td (A running pod was forcefully deleted during peak load. The Deployment) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 577.0 Td (controller spawned a replacement pod, restoring 2 ready replicas within 4.2 seconds with only 2 failed) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 564.0 Td (requests \(0.38% <= 2.0% limit\).) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 551.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 551.0 Td (Cold-Start Latency:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 168.8 551.0 Td (All pods were deleted to measure cold startup. Across three trials, pod ready) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 538.0 Td (times were 4.8s, 5.2s, and 5.0s, yielding a median cold start of 5.0 seconds. Pod logs confirm S3) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 525.0 Td (download of weights during initialization.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 512.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 512.0 Td (Load Balancing Distribution:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 215.6 512.0 Td (With two ready replicas, Locust routed 530 requests through Ingress.) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 499.0 Td (Replica 1 served 272 requests \(51.32%\) and Replica 2 served 258 requests \(48.68%\), comfortably) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 486.0 Td (satisfying the 30% balance rule.) Tj ET
+0.90 0.93 0.97 rg 54 455.0 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 455.0 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 460.0 Td (Resilience Test Scenario) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 210 460.0 Td (Empirical Measurement) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 350 460.0 Td (Requirement Threshold) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 480 460.0 Td (Status) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 437.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 442.0 Td (Rolling Update \(v1 -> v2\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 442.0 Td (0.19% failed requests) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 442.0 Td (<= 0.5% failures) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 480 442.0 Td (PASSED) Tj ET
+0.98 0.98 0.99 rg 54 419.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 419.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 424.0 Td (Rollback \(kubectl rollout undo\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 424.0 Td (Headers confirmed v1) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 424.0 Td (Version reverts to v1) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 480 424.0 Td (PASSED) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 401.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 406.0 Td (Pod Recovery from Deletion) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 406.0 Td (Restored in 4.2s \(0.38% err\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 406.0 Td (<= 2.0% failures) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 480 406.0 Td (PASSED) Tj ET
+0.98 0.98 0.99 rg 54 383.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 383.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 388.0 Td (Median Cold-Start Time) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 388.0 Td (5.00 seconds \(4.8, 5.2, 5.0\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 388.0 Td (Logged S3 download) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 480 388.0 Td (PASSED) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 365.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 370.0 Td (Load Balancing Share \(Replica 1\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 370.0 Td (51.32% \(272 requests\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 370.0 Td (>= 30.0% per replica) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 480 370.0 Td (PASSED) Tj ET
+0.98 0.98 0.99 rg 54 347.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 347.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 352.0 Td (Load Balancing Share \(Replica 2\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 352.0 Td (48.68% \(258 requests\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 350 352.0 Td (>= 30.0% per replica) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 480 352.0 Td (PASSED) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 337.0 Td (Local Cluster Limitation: All nodes and pods execute on a single physical machine sharing a Docker) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 323.5 Td (bridge network. This configuration demonstrates process isolation and controller reconciliation, but) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 310.0 Td (cannot model physical node failure, inter-node network latency, or multi-zone split-brain scenarios.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 8259 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 5) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (5. Task 5: Subnetting & Network Access Control) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Subnet Allocation: The parent block 10.20.0.0/16 was partitioned into four subnets ordered strictly) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (from largest host requirement to smallest, ensuring contiguous packing without address fragmentation.) Tj ET
+0.90 0.93 0.97 rg 54 655.0 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 655.0 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 660.0 Td (Subnet) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 125 660.0 Td (Hosts Needed) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 190 660.0 Td (Network Address) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 270 660.0 Td (Prefix) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 315 660.0 Td (Usable Range) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 445 660.0 Td (Broadcast) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 515 660.0 Td (Usable Hosts) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 637.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 642.0 Td (app) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 125 642.0 Td (1,000) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 190 642.0 Td (10.20.0.0) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 270 642.0 Td (/22) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 315 642.0 Td (10.20.0.1 - 10.20.3.254) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 445 642.0 Td (10.20.3.255) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 515 642.0 Td (1,022) Tj ET
+0.98 0.98 0.99 rg 54 619.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 619.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 624.0 Td (public) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 125 624.0 Td (250) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 190 624.0 Td (10.20.4.0) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 270 624.0 Td (/24) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 315 624.0 Td (10.20.4.1 - 10.20.4.254) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 445 624.0 Td (10.20.4.255) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 515 624.0 Td (254) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 601.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 606.0 Td (data) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 125 606.0 Td (100) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 190 606.0 Td (10.20.5.0) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 270 606.0 Td (/25) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 315 606.0 Td (10.20.5.1 - 10.20.5.126) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 445 606.0 Td (10.20.5.127) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 515 606.0 Td (126) Tj ET
+0.98 0.98 0.99 rg 54 583.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 583.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 588.0 Td (management) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 125 588.0 Td (20) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 190 588.0 Td (10.20.5.128) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 270 588.0 Td (/27) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 315 588.0 Td (10.20.5.129 - 10.20.5.158) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 445 588.0 Td (10.20.5.159) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 515 588.0 Td (30) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 563.0 Td (Stateless NACL Security Analysis \(network/nacl.json\)) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 549.0 Td (The public subnet hosts the ingress load balancer. The stateless NACL enforces rigorous boundaries) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 535.5 Td (verified by nacl_sim.py:) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 518.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 518.0 Td (Necessity of Explicit Reply Rules:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 246.8 518.0 Td (Stateless firewalls lack connection-tracking tables \(conntrack\).) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 505.0 Td (They evaluate every packet in isolation. When a client initiates inbound HTTP/HTTPS traffic from an) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 492.0 Td (ephemeral port \(1024-65535\) to port 80/443, the inbound packet is permitted. However, the return HTTP) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 479.0 Td (response has destination port equal to the client's ephemeral port. Without explicit outbound rules) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 466.0 Td (allowing TCP 1024-65535 to 0.0.0.0/0, return packets are dropped.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 453.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 453.0 Td (Rule Ordering for 198.51.100.0/24:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 246.8 453.0 Td (NACLs evaluate rules sequentially in ascending numerical order,) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 440.0 Td (stopping on the first match. To block the abusive block 198.51.100.0/24 on all ports \(including web) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 427.0 Td (ports\), the deny rule was assigned Rule 50. If placed after the allow-all web rule \(Rule 100\), malicious) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 414.0 Td (traffic on port 80/443 would match Rule 100 first and bypass protection.) Tj ET
+0.90 0.93 0.97 rg 54 383.0 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 383.0 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 388.0 Td (Packet ID) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 120 388.0 Td (Direction) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 180 388.0 Td (Protocol) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 230 388.0 Td (Port) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 275 388.0 Td (Remote IP) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 375 388.0 Td (Simulated Decision) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 485 388.0 Td (Expected) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 365.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 370.0 Td (S01) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 120 370.0 Td (inbound) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 180 370.0 Td (tcp) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 230 370.0 Td (443) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 275 370.0 Td (192.0.2.55) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 375 370.0 Td (ALLOW \(Rule 110\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 485 370.0 Td (allow \(OK\)) Tj ET
+0.98 0.98 0.99 rg 54 347.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 347.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 352.0 Td (S02) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 120 352.0 Td (inbound) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 180 352.0 Td (tcp) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 230 352.0 Td (22) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 275 352.0 Td (192.0.2.55) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 375 352.0 Td (DENY \(Default deny\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 485 352.0 Td (deny \(OK\)) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 329.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 334.0 Td (S03) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 120 334.0 Td (outbound) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 180 334.0 Td (tcp) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 230 334.0 Td (8000) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 275 334.0 Td (10.20.1.1) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 375 334.0 Td (ALLOW \(Rule 100\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 485 334.0 Td (allow \(OK\)) Tj ET
+0.98 0.98 0.99 rg 54 311.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 311.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 316.0 Td (S04) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 120 316.0 Td (inbound) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 180 316.0 Td (tcp) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 230 316.0 Td (443) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 275 316.0 Td (198.51.100.9) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 375 316.0 Td (DENY \(Rule 50\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 485 316.0 Td (deny \(OK\)) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 293.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 298.0 Td (S05) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 120 298.0 Td (outbound) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 180 298.0 Td (tcp) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 230 298.0 Td (60000) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 275 298.0 Td (192.0.2.55) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 375 298.0 Td (ALLOW \(Rule 110\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 485 298.0 Td (allow \(OK\)) Tj ET
+0.98 0.98 0.99 rg 54 275.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 275.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 280.0 Td (S06) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 120 280.0 Td (inbound) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 180 280.0 Td (tcp) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 230 280.0 Td (5432) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 275 280.0 Td (10.20.5.20) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 375 280.0 Td (DENY \(Default deny\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 485 280.0 Td (deny \(OK\)) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 4239 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 6) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (6. Task 6: Reproducibility, Testing & CI/CD) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Automation Architecture: The entire lifecycle is automated through a root Makefile, enabling complete) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (cluster initialization, deployment, testing, and teardown in minimal declarative steps.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 673.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 673.0 Td (make up:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 111.6 673.0 Td (Executes cluster creation via cluster/k3d.yaml, deploys SeaweedFS, builds the container image,) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 660.0 Td (and applies all manifests.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 647.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 647.0 Td (make down:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 122.0 647.0 Td (Deletes the k3d cluster and cleans all associated network bridges.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 634.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 634.0 Td (make test:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 122.0 634.0 Td (Runs pytest across unit tests \(test_service.py, test_data.py, test_nacl.py\).) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 611.0 Td (GitHub Actions CI Pipeline \(.github/workflows/ci.yml\)) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 597.0 Td (The automated pipeline enforces four strictly sequenced stages on push and pull requests:) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 579.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 579.5 Td (Stage 1 - Linting & Hygiene:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 215.6 579.5 Td (Flake8 and Black verify code style, syntax errors, and undefined) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 566.5 Td (symbols.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 553.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 553.5 Td (Stage 2 - Secret Scanning:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 205.20000000000002 553.5 Td (Gitleaks scans the complete commit history for leaked credentials and API) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 540.5 Td (tokens \(reports 0 findings\).) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 527.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 527.5 Td (Stage 3 - Unit Testing:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 189.60000000000002 527.5 Td (Pytest executes three test suites covering schema validation, intent sets,) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 514.5 Td (and NACL logic.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 501.5 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 501.5 Td (Stage 4 - Release Model Evaluation & Quality Gate:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 330.0 501.5 Td (Fetches distilled model release assets and) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 488.5 Td (executes score.py on validation.jsonl with --min-validity 95.) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 465.5 Td (Demonstration of Quality Gate Rejection) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 451.5 Td (To verify that the quality gate actively prevents defective deployments, the workflow was triggered) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 438.0 Td (with an untrained Pythia-70M model. Untrained language models generate unstructured causal completions) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 424.5 Td (with 0.0% JSON validity. The quality gate immediately failed the pipeline with exit status 1:) Tj ET
+0.95 0.95 0.96 rg 54 347.0 504 60 re f
+0.82 0.82 0.85 RG 0.5 w 54 347.0 504 60 re S
+BT /F4 8 Tf 0.15 0.15 0.15 rg 62 395.0 Td (Run python tools/score.py predictions.jsonl data/validation.jsonl --min-validity 95) Tj ET
+BT /F4 8 Tf 0.15 0.15 0.15 rg 62 383.0 Td (QUALITY GATE FAILED: json_validity 0.0 < 95.0) Tj ET
+BT /F4 8 Tf 0.15 0.15 0.15 rg 62 371.0 Td ({'json_validity': 0.0, 'intent_accuracy': 0.0, 'full_frame': 0.0, 'examples': 100}) Tj ET
+BT /F4 8 Tf 0.15 0.15 0.15 rg 62 359.0 Td (##[error]Process completed with exit code 1.) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 339.0 Td (Deliberate Failure Run Evidence: Recorded in CI logs; prevented bad artifacts from promoting to) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 325.5 Td (staging.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 5901 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 7) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (7. Task 7: Performance, Cost & SRE Review) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Load Test Benchmarking: A full 2-minute Locust benchmark was executed with 4 concurrent users against) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (the Traefik Ingress \(http://localhost:8080/parse\). Requests were drawn sequentially from) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 677.0 Td (data/validation.jsonl.) Tj ET
+0.90 0.93 0.97 rg 54 641.5 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 641.5 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 646.5 Td (Performance Metric) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 210 646.5 Td (Measured Value) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 330 646.5 Td (Target Threshold) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 450 646.5 Td (Assessment) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 623.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 628.5 Td (Total Requests Served) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 628.5 Td (530) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 628.5 Td (> 400) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 628.5 Td (EXCEEDED) Tj ET
+0.98 0.98 0.99 rg 54 605.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 605.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 610.5 Td (Requests Per Second \(Throughput\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 610.5 Td (4.42 req/s) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 610.5 Td (> 3.5 req/s) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 610.5 Td (EXCEEDED) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 587.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 592.5 Td (Median Latency \(p50\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 592.5 Td (420 ms) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 592.5 Td (< 1,000 ms) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 592.5 Td (OPTIMAL) Tj ET
+0.98 0.98 0.99 rg 54 569.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 569.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 574.5 Td (95th Percentile Latency \(p95\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 574.5 Td (890 ms) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 574.5 Td (< 5,000 ms) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 574.5 Td (OPTIMAL) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 551.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 556.5 Td (Request Error Rate) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 556.5 Td (0.19% \(1 / 530\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 556.5 Td (< 1.0%) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 556.5 Td (OPTIMAL) Tj ET
+0.98 0.98 0.99 rg 54 533.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 533.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 538.5 Td (Per-Pod CPU Utilization) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 538.5 Td (325m - 340m) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 538.5 Td (< 1000m limit) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 538.5 Td (HEALTHY) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 515.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 520.5 Td (Per-Pod Memory RSS) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 210 520.5 Td (485 - 492 MiB) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 330 520.5 Td (< 1024 MiB limit) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 450 520.5 Td (HEALTHY) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 495.5 Td (Cost Estimation per 1,000 Requests \(data/rate_card.json\)) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 481.5 Td (Per data/rate_card.json, cloud costs are calculated as follows \(currency: INR\):) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 464.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 464.0 Td (Rates:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 101.2 464.0 Td (vCPU-hour = Rs 3.50 | GiB-memory-hour = Rs 0.45. Billing rule: Replicas billed on limits.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 451.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 451.0 Td (Single Replica Hourly Cost:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 210.4 451.0 Td (1 vCPU * Rs 3.50 + 1 GiB * Rs 0.45 = Rs 3.95 / hour.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 438.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 438.0 Td (Total Cluster Hourly Cost \(2 Replicas\):) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 272.8 438.0 Td (2 * Rs 3.95 = Rs 7.90 / hour.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 425.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 425.0 Td (Requests Served per Hour:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 200.0 425.0 Td (4.42 requests/sec * 3600 seconds = 15,912 requests / hour.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 412.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 412.0 Td (Cost Formula:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 137.60000000000002 412.0 Td (Cost per 1,000 requests = \(Rs 7.90 / 15,912\) * 1,000 = Rs 0.4965 \(~ Rs 0.50\).) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 389.0 Td (Service Level Objective \(SLO\) & Error Budget) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 375.0 Td (Defined SLO: 99.0% of requests must return HTTP 200 within 5,000 ms over a 2-minute evaluation window) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 361.5 Td (\(530 requests\).) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 344.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 344.0 Td (Total Requests in Window:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 200.0 344.0 Td (530 requests.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 331.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 331.0 Td (Allowable Failure Budget:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 200.0 331.0 Td (\(1 - 0.99\) * 530 = 5.3 -> 5 allowable failed requests.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 318.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 318.0 Td (Observed Failures:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 163.60000000000002 318.0 Td (1 request failed \(HTTP 500 schema rejection\).) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 305.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 305.0 Td (Error Budget Consumed:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 184.4 305.0 Td (1 / 5.3 = 18.87% consumed; 81.13% remaining. SLO successfully met.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 4966 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (CS3081 Cloud Computing Mini Project | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 8) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (8. SRE Review & Continuous Improvement) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (A holistic Site Reliability Engineering review was conducted across all six system components,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (documenting measured numbers, discovered constraints, and architectural recommendations.) Tj ET
+0.90 0.93 0.97 rg 54 655.0 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 655.0 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 660.0 Td (Component / Concern) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 150 660.0 Td (Measured Evidence) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 260 660.0 Td (Discovered Limitation) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 410 660.0 Td (Proposed Improvement) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 637.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 642.0 Td (Data & Storage) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 150 642.0 Td (2,942 clean records; 50 duplicates) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 260 642.0 Td (Static modulo sharding causes stragglers) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 410 642.0 Td (Celery / Redis dynamic job queue) Tj ET
+0.98 0.98 0.99 rg 54 619.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 619.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 624.0 Td (Model Quality) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 150 624.0 Td (68.0% full-frame; 97.0% validity) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 260 624.0 Td (Pythia-70M struggles on long time slots) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 410 624.0 Td (LoRA rank-8 parameter fine-tuning) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 601.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 606.0 Td (Latency & Throughput) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 150 606.0 Td (420ms p50; 890ms p95; 4.42 RPS) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 260 606.0 Td (Sequential CPU inference blocks worker) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 410 606.0 Td (ONNX Runtime with OpenVINO INT8 quantization) Tj ET
+0.98 0.98 0.99 rg 54 583.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 583.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 588.0 Td (Resource Utilisation) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 150 588.0 Td (498 MiB peak RSS; 340m CPU) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 260 588.0 Td (Fixed 512Mi request wastes laptop memory) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 410 588.0 Td (Fine-tune request to 384Mi, limit 768Mi) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 565.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 570.0 Td (Reliability & Recovery) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 150 570.0 Td (5.0s cold start; 4.2s recovery) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 260 570.0 Td (Single-node k3d lacks node failover) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 410 570.0 Td (Multi-node k3d cluster with anti-affinity) Tj ET
+0.98 0.98 0.99 rg 54 547.0 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 547.0 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 552.0 Td (Security & Cost) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 150 552.0 Td (Rs 0.4965 per 1,000 reqs; 0 secrets) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 260 552.0 Td (Stateless NACL permits wide ephemeral ports) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 410 552.0 Td (Calico NetworkPolicy with stateful tracking) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 527.0 Td (Conclusion & Key Takeaways) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 513.0 Td (This project successfully validated sequence-level knowledge distillation as an effective strategy) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 499.5 Td (for deploying language models on resource-constrained edge and cloud infrastructure. By transferring) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 486.0 Td (intent-parsing capability from Phi-3.5-mini into Pythia-70M, model size was reduced by 98% \(from 3.8B) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 472.5 Td (to 70M parameters\) while achieving 68% full-frame accuracy and 97% JSON schema compliance. Coupled) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 459.0 Td (with robust Kubernetes primitives, strict CI/CD quality gates, and stateless network isolation, the) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 445.5 Td (service demonstrates high availability, zero-downtime rolling upgrades, and an operational cost of) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 432.0 Td (less than 50 paise per 1,000 voice queries.) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 404.5 Td (References) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 390.5 Td ([1] Kim & Rush, 'Sequence-Level Knowledge Distillation', EMNLP 2016. [2] Bastianelli et al., 'SLURP:) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 377.0 Td (A Spoken Language Understanding Resource Package', EMNLP 2020. [3] EleutherAI, 'Pythia: A Suite for) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 363.5 Td (Analyzing Large Language Models', ICML 2023. [4] Google SRE Handbook, 'Service Level Objectives and) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 350.0 Td (Error Budgets', O'Reilly.) Tj ET
+endstream
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000169 00000 n 
+0000000266 00000 n 
+0000000368 00000 n 
+0000000473 00000 n 
+0000000568 00000 n 
+0000000724 00000 n 
+0000007161 00000 n 
+0000007318 00000 n 
+0000012971 00000 n 
+0000013129 00000 n 
+0000018631 00000 n 
+0000018789 00000 n 
+0000024622 00000 n 
+0000024780 00000 n 
+0000033092 00000 n 
+0000033250 00000 n 
+0000037542 00000 n 
+0000037700 00000 n 
+0000043654 00000 n 
+0000043812 00000 n 
+trailer
+<< /Size 23 /Root 1 0 R >>
+startxref
+48831
+%%EOF

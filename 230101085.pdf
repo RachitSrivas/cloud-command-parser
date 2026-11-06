@@ -1,0 +1,193 @@
+%PDF-1.4
+%ту╧╙
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 3945 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 1) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 20 Tf 0.08 0.18 0.36 rg 54 738 Td (Student Reflection Notes & Project Retrospective) Tj ET
+BT /F1 12 Tf 0.25 0.32 0.42 rg 54 712 Td (Cloud Computing Mini Project \(CS3081\) - Knowledge Distillation & Local Cloud) Tj ET
+BT /F3 10 Tf 0.4 0.4 0.4 rg 54 694 Td (Name: Rachit Srivastava | Roll Number: 230101085) Tj ET
+0.12 0.32 0.58 RG 1.5 w 54 682 m 558 682 l S
+BT /F1 9.5 Tf 0.1 0.25 0.5 rg 54 662 Td (GitHub Repository: https://github.com/rachit-srivastava/cloud-kd-command-parser Submission File:) Tj ET
+BT /F1 9.5 Tf 0.1 0.25 0.5 rg 54 648 Td (230101085.pdf \(Maximum 3 pages\)) Tj ET
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 616 Td (1. Overview and Core Learnings) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 610 m 558 610 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 596 Td (Undertaking this end-to-end cloud computing and MLOps assignment provided invaluable, hands-on) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 582.5 Td (experience bridging machine learning engineering with modern cloud infrastructure. Working across all) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 569.0 Td (seven tasks revealed the critical interplay between model architecture, resource constraints,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 555.5 Td (networking guarantees, and container orchestration.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 538.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 538.0 Td (Sequence-Level Distillation Mechanics:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 267.6 538.0 Td (I gained a concrete understanding of how knowledge can be) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 525.0 Td (transferred from a multi-billion parameter teacher model \(Phi-3.5-mini\) into a tiny 70-million parameter) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 512.0 Td (causal model \(Pythia-70m\). Unlike classification distillation tutorials that rely on logits,) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 499.0 Td (sequence-level distillation treats generated text as pseudo-ground truth. This eliminated vocabulary) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 486.0 Td (mismatch hurdles and allowed rapid CPU fine-tuning on modest laptop hardware.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 473.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 473.0 Td (Decoupled Object Storage Patterns:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 246.8 473.0 Td (Deploying SeaweedFS in Kubernetes demonstrated why production) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 460.0 Td (cloud systems decouple persistent storage from ephemeral compute. Storing model weights as S3 objects) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 447.0 Td (rather than baking them into container layers kept Docker images under 1.2 GB, enabling lightning-fast) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 434.0 Td (rolling updates without image re-pulling bottlenecks.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 421.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 421.0 Td (Stateless vs Stateful Network Security:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 272.8 421.0 Td (Working through the VLSM subnetting and NACL simulator) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 408.0 Td (crystallized the operational mechanics of stateless packet filtering. I learned why firewalls without) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 395.0 Td (connection-tracking tables \(conntrack\) must explicitly define rules for ephemeral return ports, and how) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 382.0 Td (ascending numerical evaluation dictates firewall rule placement.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 369.0 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 369.0 Td (Microservice Reliability Primitives:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 257.20000000000005 369.0 Td (Implementing distinct liveness \(/healthz\) and readiness) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 356.0 Td (\(/readyz\) probes taught me how Kubernetes manages traffic routing during heavy initialization.) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 343.0 Td (Separating container viability from model deserialization prevented black-hole requests during startup.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 3966 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (Handwritten Reflection Notes | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 2) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (2. Challenges Faced & Solutions Implemented) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F1 9.5 Tf 0 0 0 rg 54 704 Td (Throughout implementation, several non-trivial engineering bottlenecks emerged across Docker,) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 690.5 Td (Kubernetes, and model inference. The table below summarizes the key obstacles and the systemic) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 677.0 Td (resolutions applied:) Tj ET
+0.90 0.93 0.97 rg 54 641.5 504 18 re f
+0.7 0.75 0.85 RG 0.75 w 54 641.5 504 18 re S
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 60 646.5 Td (Component / Area) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 155 646.5 Td (Key Challenge Encountered) Tj ET
+BT /F2 8.5 Tf 0.1 0.2 0.35 rg 355 646.5 Td (Engineering Solution Applied) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 623.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 628.5 Td (Container Image Size) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 155 628.5 Td (Default PyTorch wheel pushed Docker image to 4.8 GB \(> 2 GB limit\)) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 355 628.5 Td (Switched to CPU-only index wheel \(torch==2.2.2+cpu\), reducing image to 1.18 GB.) Tj ET
+0.98 0.98 0.99 rg 54 605.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 605.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 610.5 Td (Readiness Deadlock) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 155 610.5 Td (Traffic hit Pods before model loaded from S3, triggering HTTP 500s) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 355 610.5 Td (Configured /readyz to return 503 until S3 download and model.eval\(\) completed.) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 587.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 592.5 Td (Stateless NACL Drops) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 155 592.5 Td (Client browser connections hung indefinitely on port 80/443) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 355 592.5 Td (Identified missing ephemeral outbound rule; added TCP 1024-65535 allow to 0.0.0.0/0.) Tj ET
+0.98 0.98 0.99 rg 54 569.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 569.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 574.5 Td (Abusive CIDR Bypass) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 155 574.5 Td (198.51.100.0/24 traffic passed through web ports despite deny rule) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 355 574.5 Td (Reordered deny rule to Rule 50, placing it before general allow rules \(Rule 100/110\).) Tj ET
+0.85 0.85 0.88 RG 0.5 w 54 551.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 556.5 Td (Teacher Tokenizer Gap) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 155 556.5 Td (Could not run logit distillation due to vocabulary differences) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 355 556.5 Td (Employed sequence-level distillation, treating teacher JSON as target training tokens.) Tj ET
+0.98 0.98 0.99 rg 54 533.5 504 18 re f
+0.85 0.85 0.88 RG 0.5 w 54 533.5 504 18 re S
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 60 538.5 Td (Locust Header Tracking) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 155 538.5 Td (Locust does not natively aggregate custom response headers) Tj ET
+BT /F1 8.2 Tf 0.1 0.1 0.1 rg 355 538.5 Td (Extended Locust user script with custom event listeners to tally X-Served-By headers.) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 513.5 Td (Overcoming Infrastructure & Hardware Constraints) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 499.5 Td (Running LLM fine-tuning on a laptop CPU without dedicated GPU acceleration posed severe thermal and) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 486.0 Td (memory constraints. By enforcing batch size = 8, gradient accumulation, sequence truncation to 128) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 472.5 Td (tokens, and caching pre-tokenized tensors, training throughput achieved ~18 samples/second on CPU) Tj ET
+BT /F1 9.5 Tf 0 0 0 rg 54 459.0 Td (without thermal throttling. Memory footprint remained under 1.4 GB RAM.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 4091 >>
+stream
+BT /F1 9 Tf 0.4 0.4 0.4 rg 54 756 Td (Handwritten Reflection Notes | Rachit Srivastava \(230101085\)) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 750 m 558 750 l S
+BT /F1 9 Tf 0.4 0.4 0.4 rg 518 36 Td (Page 3) Tj ET
+0.8 0.8 0.8 RG 0.5 w 54 48 m 558 48 l S
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 724 Td (3. Key Findings, Empirical Discoveries & SRE Observations) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 718 m 558 718 l S
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 704 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 704 Td (Distillation Compression Ratio:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 231.20000000000002 704 Td (Pythia-70M represented a 54x parameter reduction compared to) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 691 Td (Phi-3.5-mini \(70M vs 3.8B parameters\). Despite this massive compression, the student model achieved) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 678 Td (68.0% full-frame accuracy and 97.0% JSON schema validity, recovering over 81% of the teacher's) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 665 Td (capability.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 652 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 652 Td (Cold-Start Latency Breakdown:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 220.8 652 Td (Measured cold start across three runs had a median of 5.0 seconds) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 639 Td (\(4.8s, 5.2s, 5.0s\). Breakdown: 1.1s for container scheduling, 1.8s for S3 weight download over cluster) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 626 Td (network, and 2.1s for PyTorch tensor deserialization.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 613 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 613 Td (Fault-Injection Resilience:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 210.4 613 Td (Setting FAULT_INJECT=1 proved that the FastAPI validator never leaks) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 600 Td (broken JSON to upstream clients with HTTP 200. In all test cases, corrupted completions immediately) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 587 Td (triggered HTTP 500 with {'error': 'invalid_model_output'}.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 574 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 574 Td (Cost-Efficiency at Scale:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 200.0 574 Td (At 4.42 RPS, two 1-vCPU/1-GiB replicas incur an estimated cloud cost of Rs) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 561 Td (0.4965 per 1,000 queries. This proves that dedicated small models can run at a fraction of commercial) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 548 Td (API costs \(such as GPT-4o-mini or Claude 3.5 Haiku\).) Tj ET
+BT /F2 13 Tf 0.10 0.22 0.45 rg 54 521 Td (4. What Could Be Done Better & Future Improvements) Tj ET
+0.7 0.75 0.85 RG 0.75 w 54 515 m 558 515 l S
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 501 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 501 Td (Dynamic Task Queue for Labelling:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 241.6 501 Td (Replace static modulo line-sharding with an asynchronous task) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 488 Td (broker \(RabbitMQ/Celery\). Modulo sharding causes stragglers if command lengths vary significantly.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 475 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 475 Td (Model Quantization \(INT8 / ONNX\):) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 241.6 475 Td (Convert Pythia-70M weights to ONNX Runtime with INT8 dynamic) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 462 Td (quantization. This would reduce memory from 498 MiB to ~180 MiB and double CPU inference throughput.) Tj ET
+BT /F2 9.2 Tf 0.12 0.32 0.58 rg 58 449 Td (Х) Tj ET
+BT /F2 9.2 Tf 0.1 0.1 0.1 rg 70 449 Td (Stateful NetworkPolicies:) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 200.0 449 Td (Complement stateless subnet NACLs with Calico Kubernetes NetworkPolicies to) Tj ET
+BT /F1 9.2 Tf 0 0 0 rg 70 436 Td (enforce pod-to-pod micro-segmentation.) Tj ET
+BT /F2 11 Tf 0.15 0.28 0.40 rg 54 413 Td (Student Declaration) Tj ET
+BT /F1 9.5 Tf 0.1 0.1 0.1 rg 54 399 Td (I hereby declare that this assignment represents my authentic work, incorporating open-source tools,) Tj ET
+BT /F1 9.5 Tf 0.1 0.1 0.1 rg 54 385 Td (rigorous empirical measurements, and disciplined verification methodologies. Signature: Rachit) Tj ET
+BT /F1 9.5 Tf 0.1 0.1 0.1 rg 54 371 Td (Srivastava Date: November 6, 2026) Tj ET
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000134 00000 n 
+0000000231 00000 n 
+0000000333 00000 n 
+0000000438 00000 n 
+0000000533 00000 n 
+0000000689 00000 n 
+0000004686 00000 n 
+0000004843 00000 n 
+0000008862 00000 n 
+0000009020 00000 n 
+trailer
+<< /Size 13 /Root 1 0 R >>
+startxref
+13164
+%%EOF

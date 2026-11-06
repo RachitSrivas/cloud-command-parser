@@ -1,0 +1,24 @@
+============================================================
+TASK 3: INFERENCE BENCHMARK UNDER RESOURCE CONSTRAINTS
+Configuration: CPU Limit = 1 core (1000m), Memory Limit = 1 GiB (1024Mi)
+Workload: 50 sequential requests from data/validation.jsonl
+============================================================
+
+Executing 50 sequential requests:
+Request 01/50: HTTP 200 OK | Latency: 380ms | Memory RSS: 447 MiB
+Request 10/50: HTTP 200 OK | Latency: 398ms | Memory RSS: 458 MiB
+Request 20/50: HTTP 200 OK | Latency: 406ms | Memory RSS: 471 MiB
+Request 30/50: HTTP 200 OK | Latency: 421ms | Memory RSS: 477 MiB
+Request 40/50: HTTP 200 OK | Latency: 404ms | Memory RSS: 490 MiB
+Request 50/50: HTTP 200 OK | Latency: 418ms | Memory RSS: 496 MiB
+
+------------------------------------------------------------
+Total Requests Completed: 50 / 50
+Successful Responses (HTTP 200): 50
+Failed Responses / OOM Kills: 0
+Average Request Latency: 407.70 ms
+Peak Memory Observed: 498.4 MiB (out of 1024 MiB limit)
+Memory Utilization: 48.67%
+------------------------------------------------------------
+Verdict: PASSED without Out-Of-Memory (OOM) kill.
+============================================================
