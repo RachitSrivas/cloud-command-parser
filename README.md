@@ -2,8 +2,7 @@
 
 **Student Name:** Rachit Srivastava  
 **Roll Number:** 230101085  
-**GitHub Repository:** [https://github.com/rachit-srivastava/cloud-kd-command-parser](https://github.com/rachit-srivastava/cloud-kd-command-parser)  
-*(Note: Replace with your actual GitHub repository URL prior to final tagging)*
+**GitHub Repository:** [[https://github.com/rachit-srivastava/cloud-kd-command-parser](https://github.com/rachit-srivastava/cloud-kd-command-parser)](https://github.com/RachitSrivas/cloud-command-parser)  
 
 ---
 
